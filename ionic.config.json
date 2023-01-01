@@ -1,0 +1,7 @@
+{
+  "name": "LessNotify",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
