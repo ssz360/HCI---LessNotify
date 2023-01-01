@@ -1,13 +1,23 @@
-import './ExploreContainer.css';
+import { IonButton, IonCol, IonGrid, IonRow } from "@ionic/react";
+import "./ExploreContainer.css";
 
-interface ContainerProps { }
+interface ContainerProps {}
 
 const ExploreContainer: React.FC<ContainerProps> = () => {
   return (
-    <div className="container">
-      <strong>Ready to create an app?</strong>
-      <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-    </div>
+    <IonGrid>
+      <IonRow>
+        <IonCol>
+          <IonButton routerLink="/main-page">Main Page</IonButton>
+        </IonCol>
+        <IonCol>
+          <IonButton routerLink="/turn-off">Turn Off Page</IonButton>
+        </IonCol>
+        <IonCol>
+          <IonButton routerLink="/prioritizing">Prioritizing Page</IonButton>
+        </IonCol>
+      </IonRow>
+    </IonGrid>
   );
 };
 
