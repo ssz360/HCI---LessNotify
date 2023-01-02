@@ -26,7 +26,8 @@ import TurnOffPage from './pages/TurnOffPage/TurnOffPage';
 import PrioritizingPage from './pages/PrioritizingPage/PrioritizingPage';
 import SetTimePage from './pages/SetTimePage/SetTimePage'; 
 import RepeatPage from './pages/RepeatPage/RepeatPage'; 
-
+import FilterContent from './pages/FilterContentPage/FilterContentPage'
+import AddKeywords from './pages/AddKeywordsPage/AddKeywordsPage'
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -50,6 +51,12 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/repeat">
           <RepeatPage />
+        </Route>
+        <Route exact path="/filter-content">
+           <FilterContent/>
+        </Route>
+        <Route exact path="/add-keywords">
+          <AddKeywords/>
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />

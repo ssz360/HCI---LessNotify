@@ -24,6 +24,9 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
         <IonCol>
           <IonButton routerLink="/repeat">Repeat Page</IonButton>
         </IonCol>
+        <IonCol>
+          <IonButton routerLink="/filter-content">Content Filtering</IonButton>
+        </IonCol>
       </IonRow>
     </IonGrid>
   );

@@ -52,6 +52,7 @@ const MainPage: React.FC = () => {
           <br />
           </IonCol>
         </IonRow>
+        
       </IonGrid>
     </IonPage>
   );
