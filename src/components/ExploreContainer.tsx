@@ -17,6 +17,14 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
           <IonButton routerLink="/prioritizing">Prioritizing Page</IonButton>
         </IonCol>
       </IonRow>
+      <IonRow>
+        <IonCol>
+          <IonButton routerLink="/settime">Set Time Page</IonButton>
+        </IonCol>
+        <IonCol>
+          <IonButton routerLink="/repeat">Repeat Page</IonButton>
+        </IonCol>
+      </IonRow>
     </IonGrid>
   );
 };

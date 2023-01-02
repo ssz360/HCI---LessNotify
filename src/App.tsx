@@ -24,6 +24,8 @@ import './theme/variables.css';
 import MainPage from './pages/MainPage/MainPage';
 import TurnOffPage from './pages/TurnOffPage/TurnOffPage';
 import PrioritizingPage from './pages/PrioritizingPage/PrioritizingPage';
+import SetTimePage from './pages/SetTimePage/SetTimePage'; 
+import RepeatPage from './pages/RepeatPage/RepeatPage'; 
 
 setupIonicReact();
 
@@ -42,6 +44,12 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/prioritizing">
           <PrioritizingPage />
+        </Route>
+        <Route exact path="/settime">
+          <SetTimePage />
+        </Route>
+        <Route exact path="/repeat">
+          <RepeatPage />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
