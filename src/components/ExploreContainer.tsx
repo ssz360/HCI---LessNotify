@@ -27,6 +27,9 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
         <IonCol>
           <IonButton routerLink="/filter-content">Content Filtering</IonButton>
         </IonCol>
+        <IonCol>
+          <IonButton routerLink="/add-keywords">Add Keywords</IonButton>
+        </IonCol>
       </IonRow>
     </IonGrid>
   );
