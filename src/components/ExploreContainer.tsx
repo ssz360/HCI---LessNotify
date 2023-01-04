@@ -31,6 +31,11 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
           <IonButton routerLink="/add-keywords">Add Keywords</IonButton>
         </IonCol>
       </IonRow>
+      <IonRow>
+        <IonCol>
+          <IonButton routerLink="/priority-listPage">Priority List</IonButton>
+        </IonCol>
+      </IonRow>
     </IonGrid>
   );
 };
