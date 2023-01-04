@@ -72,7 +72,7 @@ const AddKeywords: React.FC=()=>{
           
             <IonItem>
               <div slot="end">
-                <IonButton size="default" className="plr-10">
+                <IonButton routerLink="/" size="default" className="plr-10">
                   Done
                 </IonButton>
               </div>

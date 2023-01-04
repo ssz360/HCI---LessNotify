@@ -1,5 +1,5 @@
 import {
-    IonButton,
+  IonButton,
   IonCol,
   IonContent,
   IonGrid,
@@ -15,113 +15,110 @@ import {
   IonLabel,
   IonList,
   IonToggle,
-  IonFooter
+  IonFooter,
 } from "@ionic/react";
-import { informationCircle, star, chevronBackOutline,trashOutline,addCircleOutline } from "ionicons/icons";
+import {
+  informationCircle,
+  star,
+  chevronBackOutline,
+  trashOutline,
+  addCircleOutline,
+} from "ionicons/icons";
 import { createBrowserHistory } from "history";
-import "./FilterConetentPage.css"
+import "./FilterConetentPage.css";
 
+const FilterContent: React.FC = () => {
+  const history = createBrowserHistory();
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonItem className="no-border">
+            <IonIcon
+              onClick={(e) => {
+                e.preventDefault();
+                history.goBack();
+              }}
+              icon={chevronBackOutline}
+              slot="start"
+            ></IonIcon>
+            <IonTitle>Filter By Content</IonTitle>
+          </IonItem>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <br />
+        <br />
+        <IonText>
+          If message contains the keyword from the blow list, show me the
+          notification:
+        </IonText>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <IonText>
+          <h3>Keywords:</h3>
+        </IonText>
+        <br />
+        <br />
 
-const FilterContent: React.FC=()=>{
-    const history = createBrowserHistory();
-    return(
-
-          <IonPage>
-            <IonHeader>
-              <IonToolbar>
-                <IonItem className="no-border">
-                  <IonIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                      history.goBack();
-                    }}
-                    icon={chevronBackOutline}
-                    slot="start"
-                  ></IonIcon>
-                  <IonTitle>Filter By Content</IonTitle>
-                </IonItem>
-              </IonToolbar>
-            </IonHeader>
-            <IonContent>
-            <br />
-             <br />
-            <IonText>
-             If message contains the keyword from the blow list, show me the notification:
-            </IonText>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <IonText >
-             <h3>Keywords:</h3>
-            </IonText>
-            <br />
-            <br />
-
-            <IonList>
+        <IonList>
           <IonItem>
             <IonLabel>important</IonLabel>
             <IonIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                    icon={trashOutline}
-                    slot="end"
-                  ></IonIcon>
-            
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              icon={trashOutline}
+              slot="end"
+            ></IonIcon>
           </IonItem>
           <IonItem>
             <IonLabel>sos</IonLabel>
             <IonIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                    icon={trashOutline}
-                    slot="end"
-                  ></IonIcon>
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              icon={trashOutline}
+              slot="end"
+            ></IonIcon>
           </IonItem>
           <IonItem>
             <IonLabel>HCI</IonLabel>
             <IonIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                    icon={trashOutline}
-                    slot="end"
-                  ></IonIcon>
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              icon={trashOutline}
+              slot="end"
+            ></IonIcon>
           </IonItem>
           <IonItem>
             <IonLabel>help</IonLabel>
             <IonIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                    icon={trashOutline}
-                    slot="end"
-                  ></IonIcon>
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              icon={trashOutline}
+              slot="end"
+            ></IonIcon>
           </IonItem>
         </IonList>
-            </IonContent>
-            
+      </IonContent>
+      <IonButton fill="clear" routerLink="/add-keywords">
         <IonToolbar>
-        <IonIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
-                    icon={addCircleOutline}
-                    slot="start"
-                    size="large"
-                  ></IonIcon>
-          <IonTitle class="ion-text-start" >Add Keyword</IonTitle>
+          <IonIcon icon={addCircleOutline} slot="start" size="large"></IonIcon>
+          <IonTitle class="ion-text-start">Add Keyword</IonTitle>
         </IonToolbar>
-      
-            </IonPage>
-    )
-}
+      </IonButton>
+    </IonPage>
+  );
+};
 
-export default FilterContent
+export default FilterContent;

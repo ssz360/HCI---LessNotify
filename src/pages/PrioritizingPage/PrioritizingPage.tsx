@@ -47,27 +47,27 @@ const PrioritizingPage: React.FC = () => {
         <br />
         <br />
         <IonList>
-        <IonItem detail={true}>
+        <IonItem routerLink="/priority-listPage" detail={true}>
             <IonLabel>
               <IonLabel>Telegram</IonLabel>
             </IonLabel>
           </IonItem>
-          <IonItem detail={true}>
+          <IonItem routerLink="/priority-listPage" detail={true}>
             <IonLabel>
               <IonLabel>Whatsapp</IonLabel>
             </IonLabel>
           </IonItem>
-          <IonItem detail={true}>
+          <IonItem routerLink="/priority-listPage" detail={true}>
             <IonLabel>
               <IonLabel>Imo</IonLabel>
             </IonLabel>
           </IonItem>
-          <IonItem detail={true}>
+          <IonItem routerLink="/priority-listPage" detail={true}>
             <IonLabel>
               <IonLabel>Skype</IonLabel>
             </IonLabel>
           </IonItem>
-          <IonItem detail={true}>
+          <IonItem routerLink="/priority-listPage" detail={true}>
             <IonLabel>
               <IonLabel>Messenger</IonLabel>
             </IonLabel>

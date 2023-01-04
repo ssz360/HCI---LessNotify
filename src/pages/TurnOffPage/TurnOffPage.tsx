@@ -23,6 +23,10 @@ import "./TurnOffPage.css";
 
 const TurnOffPage: React.FC = () => {
   const history = createBrowserHistory();
+  function goBack(e: any) {
+    e.preventDefault();
+    history.goBack();
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -30,8 +34,7 @@ const TurnOffPage: React.FC = () => {
           <IonItem className="no-border">
             <IonIcon
               onClick={(e) => {
-                e.preventDefault();
-                history.goBack();
+                goBack(e);
               }}
               icon={chevronBackOutline}
               slot="start"
@@ -76,10 +79,20 @@ const TurnOffPage: React.FC = () => {
         <IonToolbar>
           <IonItem>
             <div slot="end">
-              <IonButton size="default" className="plr-10">
+              <IonButton
+                routerLink="/settime"
+                size="default"
+                className="plr-10"
+              >
                 Set Time
               </IonButton>
-              <IonButton size="default" className="plr-10">
+              <IonButton
+                onClick={(e) => {
+                  goBack(e);
+                }}
+                size="default"
+                className="plr-10"
+              >
                 Done
               </IonButton>
             </div>

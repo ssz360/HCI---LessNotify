@@ -36,19 +36,19 @@ const MainPage: React.FC = () => {
         </IonCol>
         <IonRow>
           <IonCol>
-          <IonButton expand="block" size="large">Turn Off</IonButton>
+          <IonButton routerLink="/turn-off" expand="block" size="large">Turn Off</IonButton>
           <br />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-          <IonButton expand="block" size="large">Prioritizing</IonButton>
+          <IonButton routerLink="/prioritizing" expand="block" size="large">Prioritizing</IonButton>
           <br />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-          <IonButton expand="block" size="large">Content Filtering</IonButton>
+          <IonButton routerLink="/filter-content" expand="block" size="large">Content Filtering</IonButton>
           <br />
           </IonCol>
         </IonRow>
