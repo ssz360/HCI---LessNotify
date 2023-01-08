@@ -1,5 +1,5 @@
 import {
-    IonButton,
+  IonButton,
   IonCol,
   IonContent,
   IonGrid,
@@ -9,10 +9,16 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useEffect } from "react";
+import { loadData } from "../../globalVariebles/storage";
 
-import "./MainPage.css"
+import "./MainPage.css";
 
 const MainPage: React.FC = () => {
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <IonPage>
       <IonGrid className="text-center mt-10">
@@ -36,23 +42,28 @@ const MainPage: React.FC = () => {
         </IonCol>
         <IonRow>
           <IonCol>
-          <IonButton routerLink="/turn-off" expand="block" size="large">Turn Off</IonButton>
-          <br />
+            <IonButton routerLink="/turn-off" expand="block" size="large">
+              Turn Off
+            </IonButton>
+            <br />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-          <IonButton routerLink="/prioritizing" expand="block" size="large">Prioritizing</IonButton>
-          <br />
+            <IonButton routerLink="/prioritizing" expand="block" size="large">
+              Prioritizing
+            </IonButton>
+            <br />
           </IonCol>
         </IonRow>
         <IonRow>
           <IonCol>
-          <IonButton routerLink="/filter-content" expand="block" size="large">Content Filtering</IonButton>
-          <br />
+            <IonButton routerLink="/filter-content" expand="block" size="large">
+              Content Filtering
+            </IonButton>
+            <br />
           </IonCol>
         </IonRow>
-        
       </IonGrid>
     </IonPage>
   );

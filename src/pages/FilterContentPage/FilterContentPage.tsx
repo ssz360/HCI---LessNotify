@@ -26,9 +26,30 @@ import {
 } from "ionicons/icons";
 import { createBrowserHistory } from "history";
 import "./FilterConetentPage.css";
+import { useEffect, useState } from "react";
+import { getDatabase, saveData } from "../../globalVariebles/storage";
 
 const FilterContent: React.FC = () => {
   const history = createBrowserHistory();
+
+  const [keywords, setKeywords] = useState<any>([]);
+
+  useEffect(() => {
+    const data = getDatabase();
+    setKeywords(data.keywords);
+  }, []);
+
+  function onDelete(key: any) {
+    const el = keywords.find((x: any) => x === key);
+
+    keywords.splice(keywords.indexOf(el), 1);
+
+    setKeywords([...keywords]);
+
+    const data = getDatabase();
+    data.keywords = keywords;
+    saveData();
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -69,46 +90,18 @@ const FilterContent: React.FC = () => {
         <br />
 
         <IonList>
-          <IonItem>
-            <IonLabel>important</IonLabel>
-            <IonIcon
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              icon={trashOutline}
-              slot="end"
-            ></IonIcon>
-          </IonItem>
-          <IonItem>
-            <IonLabel>sos</IonLabel>
-            <IonIcon
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              icon={trashOutline}
-              slot="end"
-            ></IonIcon>
-          </IonItem>
-          <IonItem>
-            <IonLabel>HCI</IonLabel>
-            <IonIcon
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              icon={trashOutline}
-              slot="end"
-            ></IonIcon>
-          </IonItem>
-          <IonItem>
-            <IonLabel>help</IonLabel>
-            <IonIcon
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-              icon={trashOutline}
-              slot="end"
-            ></IonIcon>
-          </IonItem>
+          {keywords.map((key: any) => {
+            return (
+              <IonItem key={key}>
+                <IonLabel>{key}</IonLabel>
+                <IonIcon
+                  icon={trashOutline}
+                  slot="end"
+                  onClick={() => onDelete(key)}
+                ></IonIcon>
+              </IonItem>
+            );
+          })}
         </IonList>
       </IonContent>
       <IonButton fill="clear" routerLink="/add-keywords">

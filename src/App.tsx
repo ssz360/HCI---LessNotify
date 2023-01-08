@@ -29,6 +29,7 @@ import FilterContent from './pages/FilterContentPage/FilterContentPage'
 import AddKeywords from './pages/AddKeywordsPage/AddKeywordsPage'
 import PriorityListPage from './pages/PriorityList/PriorityListPage';
 import ContactsAndGroups from './pages/ContactsAndGroups/ContactsAndGroups';
+import { useEffect } from 'react';
 setupIonicReact();
 
 const App: React.FC = () => (

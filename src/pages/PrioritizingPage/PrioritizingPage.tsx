@@ -20,9 +20,18 @@ import { informationCircle, star, chevronBackOutline } from "ionicons/icons";
 import { createBrowserHistory } from "history";
 
 import "./PrioritizingPage.css";
+import { useEffect, useState } from "react";
+import { getDatabase } from "../../globalVariebles/storage";
 
 const PrioritizingPage: React.FC = () => {
   const history = createBrowserHistory();
+
+  const [applications, setApplications] = useState<any>([]);
+
+  useEffect(() => {
+    setApplications(getDatabase().turnoff.applications as any);
+  }, []);
+
   return (
     <IonPage>
       <IonHeader>
@@ -36,7 +45,7 @@ const PrioritizingPage: React.FC = () => {
               icon={chevronBackOutline}
               slot="start"
             ></IonIcon>
-            <IonTitle>Applications</IonTitle>
+            <IonTitle>Prioritize Notifications</IonTitle>
           </IonItem>
         </IonToolbar>
       </IonHeader>
@@ -47,31 +56,15 @@ const PrioritizingPage: React.FC = () => {
         <br />
         <br />
         <IonList>
-        <IonItem routerLink="/priority-listPage" detail={true}>
-            <IonLabel>
-              <IonLabel>Telegram</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/priority-listPage" detail={true}>
-            <IonLabel>
-              <IonLabel>Whatsapp</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/priority-listPage" detail={true}>
-            <IonLabel>
-              <IonLabel>Imo</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/priority-listPage" detail={true}>
-            <IonLabel>
-              <IonLabel>Skype</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/priority-listPage" detail={true}>
-            <IonLabel>
-              <IonLabel>Messenger</IonLabel>
-            </IonLabel>
-          </IonItem>
+          {applications.map((app: any) => {
+            return (
+              <IonItem key={app.id} routerLink="/priority-listPage" detail={true}>
+                <IonLabel>
+                  <IonLabel>{app.name}</IonLabel>
+                </IonLabel>
+              </IonItem>
+            );
+          })}
         </IonList>
       </IonContent>
     </IonPage>

@@ -9,6 +9,7 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
+  IonList,
   IonMenuButton,
   IonPage,
   IonRow,
@@ -16,21 +17,53 @@ import {
 import { IonHeader, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { createBrowserHistory } from "history";
 import { chevronBackOutline, text } from "ionicons/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDatabase, saveData } from "../../globalVariebles/storage";
 
 //interface ContainerProps { }
 
 const ContactsAndGroups: React.FC = () => {
   const history = createBrowserHistory();
 
-  //create state with searchText
-  const [searchText, setSearchText] = useState("type");
+  const [contactsGroups, setContactsGroups] = useState<any>([]);
 
-  const [text, setText] = useState("initial text");
+  let selected: Array<any> = [];
 
-  const clickEventOnButton = () => {
-    console.log(text);
-  };
+  useEffect(() => {
+    const data = getDatabase();
+    setContactsGroups(data.allContacts);
+  }, []);
+
+  function handleChange(ev: Event) {
+    const data = getDatabase();
+
+    let query = "";
+    const target = ev.target as HTMLIonSearchbarElement;
+    if (target) query = target.value!.toLowerCase();
+
+    setContactsGroups(
+      data.allContacts.filter((d: any) => d.toLowerCase().indexOf(query) > -1)
+    );
+  }
+
+  function onSelect(el: any) {
+    if (selected.includes(el)) {
+      selected.splice(selected.indexOf(el), 1);
+    } else {
+      selected.push(el);
+    }
+  }
+
+  function saveChanges() {
+    const data = getDatabase();
+
+    for (let el of selected) {
+      if (!data.selectedContacts.includes(el)) {
+        data.selectedContacts.push(el);
+      }
+    }
+    saveData();
+  }
 
   return (
     <IonPage>
@@ -45,24 +78,30 @@ const ContactsAndGroups: React.FC = () => {
               icon={chevronBackOutline}
               slot="start"
             ></IonIcon>
-            <IonTitle>Applications</IonTitle>
+            <IonTitle>Contacts And Groups</IonTitle>
           </IonItem>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonSearchbar></IonSearchbar>
-        <IonItem>
-          <IonCheckbox slot="start"></IonCheckbox>
-          <IonLabel>Shahab</IonLabel>
-        </IonItem>
-        <IonItem>
-          <IonCheckbox slot="start"></IonCheckbox>
-          <IonLabel>Shahab</IonLabel>
-        </IonItem>
-        <IonItem>
-          <IonCheckbox slot="start"></IonCheckbox>
-          <IonLabel>Shahab</IonLabel>
-        </IonItem>
+        <IonSearchbar
+          showClearButton="always"
+          placeholder="Search"
+          onIonChange={(ev) => handleChange(ev)}
+        ></IonSearchbar>
+
+        <IonList>
+          {contactsGroups.map((el: any) => {
+            return (
+              <IonItem key={el}>
+                <IonCheckbox
+                  slot="start"
+                  onIonChange={(e) => onSelect(el)}
+                ></IonCheckbox>
+                <IonLabel>{el}</IonLabel>
+              </IonItem>
+            );
+          })}
+        </IonList>
       </IonContent>
       <IonFooter>
         <IonToolbar>
@@ -75,7 +114,12 @@ const ContactsAndGroups: React.FC = () => {
               >
                 Set Time
               </IonButton>
-              <IonButton routerLink="/" size="default" className="plr-10">
+              <IonButton
+                routerLink="/"
+                onClick={() => saveChanges()}
+                size="default"
+                className="plr-10"
+              >
                 Done
               </IonButton>
             </div>

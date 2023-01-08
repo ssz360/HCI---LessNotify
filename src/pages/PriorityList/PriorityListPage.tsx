@@ -21,15 +21,38 @@ import {
   star,
   chevronBackOutline,
   addCircleOutline,
+  trashOutline,
 } from "ionicons/icons";
 import { createBrowserHistory } from "history";
 import { IonFab, IonFabButton } from "@ionic/react";
 import { add } from "ionicons/icons";
 
 import "./PriorityListPage.css";
+import { useEffect, useState } from "react";
+import { getDatabase, saveData } from "../../globalVariebles/storage";
 
 const PriorityListPage: React.FC = () => {
   const history = createBrowserHistory();
+
+  const [contacts, setContacts] = useState<any>([]);
+
+  useEffect(() => {
+    const data = getDatabase();
+    setContacts(data.selectedContacts);
+  }, []);
+
+  function onDelete(key: any) {
+    const el = contacts.find((x: any) => x === key);
+
+    contacts.splice(contacts.indexOf(el), 1);
+
+    setContacts([...contacts]);
+
+    const data = getDatabase();
+    data.selectedContacts = contacts;
+    saveData();
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -43,7 +66,7 @@ const PriorityListPage: React.FC = () => {
               icon={chevronBackOutline}
               slot="start"
             ></IonIcon>
-            <IonTitle>Applications</IonTitle>
+            <IonTitle>Selected Contacts And Groups</IonTitle>
           </IonItem>
         </IonToolbar>
       </IonHeader>
@@ -54,31 +77,18 @@ const PriorityListPage: React.FC = () => {
         <br />
         <br />
         <IonList>
-          <IonItem routerLink="/contacts-groups" detail={true}>
-            <IonLabel>
-              <IonLabel>Telegram</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/contacts-groups" detail={true}>
-            <IonLabel>
-              <IonLabel>Whatsapp</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/contacts-groups" detail={true}>
-            <IonLabel>
-              <IonLabel>Imo</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/contacts-groups" detail={true}>
-            <IonLabel>
-              <IonLabel>Skype</IonLabel>
-            </IonLabel>
-          </IonItem>
-          <IonItem routerLink="/contacts-groups" detail={true}>
-            <IonLabel>
-              <IonLabel>Messenger</IonLabel>
-            </IonLabel>
-          </IonItem>
+          {contacts.map((contact: any) => {
+            return (
+              <IonItem key={contact}>
+                <IonLabel>{contact}</IonLabel>
+                <IonIcon
+                  icon={trashOutline}
+                  slot="end"
+                  onClick={() => onDelete(contact)}
+                ></IonIcon>
+              </IonItem>
+            );
+          })}
         </IonList>
       </IonContent>
       {/* <IonFab slot="fixed" vertical="bottom" horizontal="end">
