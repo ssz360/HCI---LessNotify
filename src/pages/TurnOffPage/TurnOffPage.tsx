@@ -15,6 +15,8 @@ import {
   IonTitle,
   IonToggle,
   IonToolbar,
+  useIonAlert,
+  useIonRouter,
 } from "@ionic/react";
 import { informationCircle, star, chevronBackOutline } from "ionicons/icons";
 import { createBrowserHistory } from "history";
@@ -28,6 +30,9 @@ const TurnOffPage: React.FC = () => {
 
   const [applications, setApplications] = useState<any>([]);
 
+  const [presentAlert] = useIonAlert();
+  const router = useIonRouter();
+  
   useEffect(() => {
     setApplications(getDatabase().turnoff.applications as any);
   }, []);
@@ -45,8 +50,25 @@ const TurnOffPage: React.FC = () => {
   }
 
   function onDone(){
-    _database.turnoff.applications = applications;
-    saveData();
+
+    presentAlert({
+      header: "Warning",
+      message: "Are you sure?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+          
+            _database.turnoff.applications = applications;
+            saveData();
+
+            router.push("/");
+          },
+        },
+        "Cancel",
+      ],
+    });
+
   }
   return (
     <IonPage>
@@ -103,7 +125,6 @@ const TurnOffPage: React.FC = () => {
               <IonButton
                 onClick={(e) => {
                   onDone();
-                  goBack(e);
                 }}
                 size="default"
                 className="plr-10"

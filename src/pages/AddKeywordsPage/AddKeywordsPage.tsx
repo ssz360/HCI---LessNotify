@@ -30,6 +30,7 @@ import { createBrowserHistory } from "history";
 import "./AddKeywordsPage.css";
 import { useState } from "react";
 import { getDatabase, saveData } from "../../globalVariebles/storage";
+import { useIonRouter } from "@ionic/react";
 
 const AddKeywords: React.FC = () => {
   const history = createBrowserHistory();
@@ -37,8 +38,11 @@ const AddKeywords: React.FC = () => {
   const [key, setKey] = useState();
 
   const [presentAlert] = useIonAlert();
+  const router = useIonRouter();
 
-  function onAdd(e:any) {
+  function onAdd(e: any) {
+    e.preventDefault();
+
     if (!key) {
       presentAlert({
         header: "Error",
@@ -46,12 +50,25 @@ const AddKeywords: React.FC = () => {
         message: "You must enter a keyword.",
         buttons: ["OK"],
       });
-      e.preventDefault();
       return;
     }
-    const database = getDatabase();
-    database.keywords.push(key);
-    saveData();
+    presentAlert({
+      header: "Warning",
+      subHeader: "The notifications would be effected",
+      message: "Are you sure you want to add this keyword?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            const database = getDatabase();
+            database.keywords.push(key);
+            saveData();
+            router.push("/");
+          },
+        },
+        "Cancel",
+      ],
+    });
   }
 
   return (
@@ -67,11 +84,12 @@ const AddKeywords: React.FC = () => {
               icon={chevronBackOutline}
               slot="start"
             ></IonIcon>
+            <IonTitle>Add New Keyword</IonTitle>
           </IonItem>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <IonTitle class="ion-text-start">Add New Keyword:</IonTitle>
+        <IonTitle class="ion-text-start">The New Keyword:</IonTitle>
         <br />
         <br />
         <IonItem>
@@ -92,7 +110,12 @@ const AddKeywords: React.FC = () => {
       <IonFooter>
         <IonItem>
           <div slot="end">
-            <IonButton routerLink="/" size="default" className="plr-10" onClick={onAdd}>
+            <IonButton
+              routerLink="/"
+              size="default"
+              className="plr-10"
+              onClick={onAdd}
+            >
               Add
             </IonButton>
           </div>

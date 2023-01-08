@@ -2,13 +2,17 @@ import {
   IonButton,
   IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonPage,
   IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { helpOutline } from "ionicons/icons";
 import { useEffect } from "react";
 import { loadData } from "../../globalVariebles/storage";
 
@@ -65,6 +69,11 @@ const MainPage: React.FC = () => {
           </IonCol>
         </IonRow>
       </IonGrid>
+      <IonFab slot="fixed" vertical="bottom" horizontal="end">
+        <IonFabButton routerLink="/help">
+          <IonIcon icon={helpOutline}></IonIcon>
+        </IonFabButton>
+      </IonFab>
     </IonPage>
   );
 };

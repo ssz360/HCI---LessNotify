@@ -30,6 +30,7 @@ import AddKeywords from './pages/AddKeywordsPage/AddKeywordsPage'
 import PriorityListPage from './pages/PriorityList/PriorityListPage';
 import ContactsAndGroups from './pages/ContactsAndGroups/ContactsAndGroups';
 import { useEffect } from 'react';
+import HelpPage from './pages/HelpPage/HelpPage';
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -62,6 +63,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/priority-listPage">
           <PriorityListPage/>
+        </Route>
+        <Route exact path="/help">
+          <HelpPage/>
         </Route>
         <Route exact path="/contacts-groups">
           <ContactsAndGroups/>

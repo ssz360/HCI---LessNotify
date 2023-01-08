@@ -16,6 +16,8 @@ import {
   IonToggle,
   IonToolbar,
   IonDatetime,
+  useIonAlert,
+  useIonRouter,
 } from "@ionic/react";
 import { informationCircle, star, chevronBackOutline } from "ionicons/icons";
 import { createBrowserHistory } from "history";
@@ -29,6 +31,8 @@ const SetTimePage: React.FC = () => {
 
   const [from, fromSetter] = useState("2023-01-05T12:46:00+01:00");
   const [to, toSetter] = useState("2023-01-05T12:46:00+01:00");
+  const [presentAlert] = useIonAlert();
+  const router = useIonRouter();
 
   useEffect(() => {
     let data = getDatabase().setTime;
@@ -49,11 +53,26 @@ const SetTimePage: React.FC = () => {
   }
 
   function onDone() {
-    let database = getDatabase();
-    database.setTime.from = from;
-    database.setTime.to = to;
-    saveData();
-    console.log('saved');
+
+    presentAlert({
+      header: "Warning",
+      message: "Are you sure?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+           
+            let database = getDatabase();
+            database.setTime.from = from;
+            database.setTime.to = to;
+            saveData();
+            router.push("/");
+          },
+        },
+        "Cancel",
+      ],
+    });
+
     
   }
 
@@ -109,7 +128,6 @@ const SetTimePage: React.FC = () => {
             <div slot="end">
               <IonButton
                 onClick={() => onDone()}
-                routerLink="/"
                 size="default"
                 className="plr-10"
               >

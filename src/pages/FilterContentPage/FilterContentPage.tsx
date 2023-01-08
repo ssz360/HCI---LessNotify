@@ -16,6 +16,7 @@ import {
   IonList,
   IonToggle,
   IonFooter,
+  useIonAlert,
 } from "@ionic/react";
 import {
   informationCircle,
@@ -33,6 +34,7 @@ const FilterContent: React.FC = () => {
   const history = createBrowserHistory();
 
   const [keywords, setKeywords] = useState<any>([]);
+  const [presentAlert] = useIonAlert();
 
   useEffect(() => {
     const data = getDatabase();
@@ -40,15 +42,27 @@ const FilterContent: React.FC = () => {
   }, []);
 
   function onDelete(key: any) {
-    const el = keywords.find((x: any) => x === key);
+    presentAlert({
+      header: "Warning",
+      message: "Are you sure you want to Delete the filter?",
+      buttons: [
+        {
+          text: "Delete",
+          handler: () => {
+            const el = keywords.find((x: any) => x === key);
 
-    keywords.splice(keywords.indexOf(el), 1);
+            keywords.splice(keywords.indexOf(el), 1);
 
-    setKeywords([...keywords]);
+            setKeywords([...keywords]);
 
-    const data = getDatabase();
-    data.keywords = keywords;
-    saveData();
+            const data = getDatabase();
+            data.keywords = keywords;
+            saveData();
+          },
+        },
+        "Cancel",
+      ],
+    });
   }
   return (
     <IonPage>

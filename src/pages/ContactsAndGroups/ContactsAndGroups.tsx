@@ -13,6 +13,8 @@ import {
   IonMenuButton,
   IonPage,
   IonRow,
+  useIonAlert,
+  useIonRouter,
 } from "@ionic/react";
 import { IonHeader, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { createBrowserHistory } from "history";
@@ -22,12 +24,13 @@ import { getDatabase, saveData } from "../../globalVariebles/storage";
 
 //interface ContainerProps { }
 
+let selected: Array<any> = [];
 const ContactsAndGroups: React.FC = () => {
   const history = createBrowserHistory();
 
   const [contactsGroups, setContactsGroups] = useState<any>([]);
-
-  let selected: Array<any> = [];
+  const [presentAlert] = useIonAlert();
+  const router = useIonRouter();
 
   useEffect(() => {
     const data = getDatabase();
@@ -55,14 +58,44 @@ const ContactsAndGroups: React.FC = () => {
   }
 
   function saveChanges() {
-    const data = getDatabase();
+    presentAlert({
+      header: "Warning",
+      message: "Are you sure you want to Add these contacts/groups?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            const data = getDatabase();
 
-    for (let el of selected) {
-      if (!data.selectedContacts.includes(el)) {
-        data.selectedContacts.push(el);
+            for (let el of selected) {
+              if (!data.selectedContacts.includes(el)) {
+                data.selectedContacts.push(el);
+              }
+            }
+            saveData();
+            selected = [];
+            router.push("/");
+          },
+        },
+        "Cancel",
+      ],
+    });
+  }
+
+  function selectDeselectAll(selectAll: any) {
+    if (selectAll) {
+      selected = [];
+      for (let el of contactsGroups) {
+        selected.push(el);
       }
+    } else {
+      selected = [];
     }
-    saveData();
+    setContactsGroups([...contactsGroups]);
+  }
+
+  function shouldCheck(el: any): boolean | undefined {
+    return selected.includes(el);
   }
 
   return (
@@ -89,6 +122,15 @@ const ContactsAndGroups: React.FC = () => {
           onIonChange={(ev) => handleChange(ev)}
         ></IonSearchbar>
 
+        <IonItem>
+          <IonCheckbox
+            slot="start"
+            onIonChange={(e) => selectDeselectAll(e.detail.checked)}
+          ></IonCheckbox>
+          <IonLabel>Select All</IonLabel>
+        </IonItem>
+        <br />
+        <br />
         <IonList>
           {contactsGroups.map((el: any) => {
             return (
@@ -96,6 +138,7 @@ const ContactsAndGroups: React.FC = () => {
                 <IonCheckbox
                   slot="start"
                   onIonChange={(e) => onSelect(el)}
+                  checked={shouldCheck(el)}
                 ></IonCheckbox>
                 <IonLabel>{el}</IonLabel>
               </IonItem>
@@ -115,7 +158,6 @@ const ContactsAndGroups: React.FC = () => {
                 Set Time
               </IonButton>
               <IonButton
-                routerLink="/"
                 onClick={() => saveChanges()}
                 size="default"
                 className="plr-10"

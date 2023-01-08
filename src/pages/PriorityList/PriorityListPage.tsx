@@ -15,6 +15,8 @@ import {
   IonTitle,
   IonToggle,
   IonToolbar,
+  useIonAlert,
+  useIonRouter,
 } from "@ionic/react";
 import {
   informationCircle,
@@ -35,6 +37,8 @@ const PriorityListPage: React.FC = () => {
   const history = createBrowserHistory();
 
   const [contacts, setContacts] = useState<any>([]);
+  const [presentAlert] = useIonAlert();
+  const router = useIonRouter();
 
   useEffect(() => {
     const data = getDatabase();
@@ -42,15 +46,27 @@ const PriorityListPage: React.FC = () => {
   }, []);
 
   function onDelete(key: any) {
-    const el = contacts.find((x: any) => x === key);
+    presentAlert({
+      header: "Warning",
+      message: "Are you sure you want to Delete the contact/group?",
+      buttons: [
+        {
+          text: "Delete",
+          handler: () => {
+            const el = contacts.find((x: any) => x === key);
 
-    contacts.splice(contacts.indexOf(el), 1);
+            contacts.splice(contacts.indexOf(el), 1);
 
-    setContacts([...contacts]);
+            setContacts([...contacts]);
 
-    const data = getDatabase();
-    data.selectedContacts = contacts;
-    saveData();
+            const data = getDatabase();
+            data.selectedContacts = contacts;
+            saveData();
+          },
+        },
+        "Cancel",
+      ],
+    });
   }
 
   return (
@@ -73,30 +89,32 @@ const PriorityListPage: React.FC = () => {
       <IonContent className="ion-padding">
         <br />
         <br />
-        <IonText>select an application to add priority list:</IonText>
+        <IonText>Select a contact to change the timing:</IonText>
         <br />
         <br />
         <IonList>
           {contacts.map((contact: any) => {
             return (
-              <IonItem key={contact}>
+              <IonItem
+                key={contact}
+                onClick={() => {
+                  router.push("/settime");
+                }}
+              >
                 <IonLabel>{contact}</IonLabel>
                 <IonIcon
                   icon={trashOutline}
                   slot="end"
-                  onClick={() => onDelete(contact)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete(contact);
+                  }}
                 ></IonIcon>
               </IonItem>
             );
           })}
         </IonList>
       </IonContent>
-      {/* <IonFab slot="fixed" vertical="bottom" horizontal="end">
-          <IonFabButton routerLink="/contacts-groups">
-            <IonIcon icon={add}></IonIcon>
-          </IonFabButton>
-          </IonFab> */}
-
       <IonButton fill="clear" routerLink="/contacts-groups">
         <IonToolbar>
           <IonIcon icon={addCircleOutline} slot="start" size="large"></IonIcon>
