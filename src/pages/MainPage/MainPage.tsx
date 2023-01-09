@@ -9,7 +9,9 @@ import {
   IonIcon,
   IonPage,
   IonRow,
+  IonText,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import { helpOutline } from "ionicons/icons";
@@ -40,33 +42,43 @@ const MainPage: React.FC = () => {
           <br />
           <br />
           <br />
+          <IonText>You can turn the features on by using the toggles</IonText>
           <br />
           <br />
           <br />
         </IonCol>
         <IonRow>
-          <IonCol>
+          <IonCol size="10">
             <IonButton routerLink="/turn-off" expand="block" size="large">
               Turn Off
             </IonButton>
-            <br />
           </IonCol>
+          <IonCol size="2">
+            <IonToggle className="mt-10px" enableOnOffLabels={true}></IonToggle>
+          </IonCol>
+          <br />
         </IonRow>
         <IonRow>
           <IonCol>
             <IonButton routerLink="/prioritizing" expand="block" size="large">
               Prioritizing
             </IonButton>
-            <br />
           </IonCol>
+          <IonCol size="2">
+            <IonToggle className="mt-10px" enableOnOffLabels={true}></IonToggle>
+          </IonCol>
+          <br />
         </IonRow>
         <IonRow>
           <IonCol>
             <IonButton routerLink="/filter-content" expand="block" size="large">
               Content Filtering
             </IonButton>
-            <br />
           </IonCol>
+          <IonCol size="2">
+            <IonToggle className="mt-10px" enableOnOffLabels={true}></IonToggle>
+          </IonCol>
+          <br />
         </IonRow>
       </IonGrid>
       <IonFab slot="fixed" vertical="bottom" horizontal="end">
