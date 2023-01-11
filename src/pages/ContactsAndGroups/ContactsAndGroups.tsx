@@ -13,6 +13,7 @@ import {
   IonMenuButton,
   IonPage,
   IonRow,
+  IonText,
   useIonAlert,
   useIonRouter,
 } from "@ionic/react";
@@ -20,6 +21,8 @@ import { IonHeader, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { createBrowserHistory } from "history";
 import { chevronBackOutline, text } from "ionicons/icons";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import Menu from "../../components/Menu";
 import { getDatabase, saveData } from "../../globalVariebles/storage";
 
 //interface ContainerProps { }
@@ -32,9 +35,17 @@ const ContactsAndGroups: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const router = useIonRouter();
 
+  const [tag, setTag] = useState("");
+
+  const params: any = useParams();
+
+  useEffect(() => {
+    setTag(params.tag);
+  }, [params]);
+
   useEffect(() => {
     const data = getDatabase();
-    setContactsGroups(data.allContacts);
+    setContactsGroups(data.contacts.all);
   }, []);
 
   function handleChange(ev: Event) {
@@ -45,7 +56,7 @@ const ContactsAndGroups: React.FC = () => {
     if (target) query = target.value!.toLowerCase();
 
     setContactsGroups(
-      data.allContacts.filter((d: any) => d.toLowerCase().indexOf(query) > -1)
+      data.contacts.all.filter((d: any) => d.toLowerCase().indexOf(query) > -1)
     );
   }
 
@@ -68,11 +79,11 @@ const ContactsAndGroups: React.FC = () => {
             const data = getDatabase();
 
             for (let el of selected) {
-              if (!data.selectedContacts.includes(el)) {
-                data.selectedContacts.push(el);
+              if (!data.contacts["priorityList"][tag].includes(el)) {
+                data.contacts["priorityList"][tag].push(el);
               }
             }
-            saveData();
+            saveData(data);
             selected = [];
             router.push("/");
           },
@@ -98,77 +109,101 @@ const ContactsAndGroups: React.FC = () => {
     return selected.includes(el);
   }
 
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonItem className="no-border">
-            <IonIcon
-              onClick={(e) => {
-                e.preventDefault();
-                history.goBack();
-              }}
-              icon={chevronBackOutline}
-              slot="start"
-            ></IonIcon>
-            <IonTitle>Contacts And Groups</IonTitle>
-          </IonItem>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonSearchbar
-          showClearButton="always"
-          placeholder="Search"
-          onIonChange={(ev) => handleChange(ev)}
-        ></IonSearchbar>
+  function onSetTime() {
+    if (selected.length === 0) {
+      presentAlert({
+        header: "Error",
+        message: "At least one contact/group must be selected?",
+        buttons: ["Ok"],
+      });
+    } else {
+      router.push("/settime/" + tag + "/The selected contacts or groups");
+    }
+  }
 
-        <IonItem>
-          <IonCheckbox
-            slot="start"
-            onIonChange={(e) => selectDeselectAll(e.detail.checked)}
-          ></IonCheckbox>
-          <IonLabel>Select All</IonLabel>
-        </IonItem>
-        <br />
-        <br />
-        <IonList>
-          {contactsGroups.map((el: any) => {
-            return (
-              <IonItem key={el}>
-                <IonCheckbox
+  return (
+    <>
+      <Menu />
+      <IonPage id="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonItem className="no-border">
+            <IonButtons slot="start">
+                <IonMenuButton></IonMenuButton>
+                <IonIcon
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.goBack();
+                  }}
+                  icon={chevronBackOutline}
                   slot="start"
-                  onIonChange={(e) => onSelect(el)}
-                  checked={shouldCheck(el)}
-                ></IonCheckbox>
-                <IonLabel>{el}</IonLabel>
-              </IonItem>
-            );
-          })}
-        </IonList>
-      </IonContent>
-      <IonFooter>
-        <IonToolbar>
+                ></IonIcon>
+              </IonButtons>
+              <IonTitle>Contacts And Groups</IonTitle>
+            </IonItem>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonSearchbar
+            showClearButton="always"
+            placeholder="Search"
+            onIonChange={(ev) => handleChange(ev)}
+          ></IonSearchbar>
+
+          <IonText>
+            Select contacts and groups for <strong>{tag}</strong>
+          </IonText>
+
           <IonItem>
-            <div slot="end">
-              <IonButton
-                routerLink="/settime"
-                size="default"
-                className="plr-10"
-              >
-                Set Time
-              </IonButton>
-              <IonButton
-                onClick={() => saveChanges()}
-                size="default"
-                className="plr-10"
-              >
-                Done
-              </IonButton>
-            </div>
+            <IonCheckbox
+              slot="start"
+              onIonChange={(e) => selectDeselectAll(e.detail.checked)}
+            ></IonCheckbox>
+            <IonLabel>Select All</IonLabel>
           </IonItem>
-        </IonToolbar>
-      </IonFooter>
-    </IonPage>
+          <br />
+          <br />
+          <IonList>
+            {contactsGroups.map((el: any) => {
+              return (
+                <IonItem key={el}>
+                  <IonCheckbox
+                    slot="start"
+                    onIonChange={(e) => onSelect(el)}
+                    checked={shouldCheck(el)}
+                  ></IonCheckbox>
+                  <IonLabel>{el}</IonLabel>
+                </IonItem>
+              );
+            })}
+          </IonList>
+        </IonContent>
+        <IonFooter>
+          <IonToolbar>
+            <IonItem>
+              <div slot="end">
+                <IonButton
+                  onClick={() => {
+                    onSetTime();
+                  }}
+                  size="default"
+                  className="plr-10"
+                >
+                  Set Time
+                </IonButton>
+                <IonButton
+                  onClick={() => saveChanges()}
+                  size="default"
+                  className="plr-10"
+                >
+                  Done
+                </IonButton>
+              </div>
+            </IonItem>
+          </IonToolbar>
+        </IonFooter>
+      </IonPage>
+    </>
   );
 };
 

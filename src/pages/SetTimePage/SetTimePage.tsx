@@ -18,6 +18,8 @@ import {
   IonDatetime,
   useIonAlert,
   useIonRouter,
+  IonButtons,
+  IonMenuButton,
 } from "@ionic/react";
 import { informationCircle, star, chevronBackOutline } from "ionicons/icons";
 import { createBrowserHistory } from "history";
@@ -25,6 +27,8 @@ import { createBrowserHistory } from "history";
 import "./SetTimePage.css";
 import { useEffect, useState } from "react";
 import { getDatabase, saveData } from "../../globalVariebles/storage";
+import { useParams } from "react-router";
+import Menu from "../../components/Menu";
 
 const SetTimePage: React.FC = () => {
   const history = createBrowserHistory();
@@ -34,11 +38,35 @@ const SetTimePage: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const router = useIonRouter();
 
+  const [tag, setTag] = useState("");
+  const [app, setApp] = useState("");
+
+  const params: any = useParams();
+  let database: any;
+
   useEffect(() => {
-    let data = getDatabase().setTime;
+    let tag = params.tag;
+    let app = params.app;
+    setTag(params.tag);
+    setApp(params.app);
+
+    database = getDatabase();
+
+    let data = getDatabase().setTime.default;
+    if (database.setTime[app] && database.setTime[app][tag]) {
+      data = Object.assign({}, database.setTime[app][tag]);
+    } else {
+      if (!database.setTime[app]) {
+        database.setTime[app] = {};
+      }
+      database.setTime[app][tag] = { ...database.setTime.default };
+
+      saveData(database);
+    }
+
     fromSetter(data.from);
     toSetter(data.to);
-  }, []);
+  }, [params]);
 
   function goBack(e: any) {
     e.preventDefault();
@@ -53,7 +81,6 @@ const SetTimePage: React.FC = () => {
   }
 
   function onDone() {
-
     presentAlert({
       header: "Warning",
       message: "Are you sure?",
@@ -61,83 +88,102 @@ const SetTimePage: React.FC = () => {
         {
           text: "Yes",
           handler: () => {
-           
+            if (params.tag !== tag && params.app !== app) {
+              return;
+            }
             let database = getDatabase();
-            database.setTime.from = from;
-            database.setTime.to = to;
-            saveData();
+            console.log(database.setTime);
+            database.setTime[app][tag].from = from;
+            database.setTime[app][tag].to = to;
+            console.log(database.setTime);
+            saveData(database);
             router.push("/");
           },
         },
         "Cancel",
       ],
     });
-
-    
   }
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonItem className="no-border">
-            <IonIcon
-              onClick={(e) => {
-                goBack(e);
-              }}
-              icon={chevronBackOutline}
-              slot="start"
-            ></IonIcon>
-            <IonTitle>Add Time</IonTitle>
-          </IonItem>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <br />
-        <br />
-        <IonItem>
-          <IonLabel>From :</IonLabel>
-          <IonDatetime
-            presentation="time"
-            value={from}
-            onIonChange={(e) => {
-              onFromChange(e);
-            }}
-          ></IonDatetime>
-        </IonItem>
-        <IonItem>
+    <>
+      <Menu />
+      <IonPage id="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonItem className="no-border">
+            <IonButtons slot="start">
+                <IonMenuButton></IonMenuButton>
+                <IonIcon
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.goBack();
+                  }}
+                  icon={chevronBackOutline}
+                  slot="start"
+                ></IonIcon>
+              </IonButtons>
+              <IonTitle>Add Time</IonTitle>
+            </IonItem>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonText>
+            Please set time for{" "}
+            <strong>
+              {tag} {app === "turn-off" ? "" : app}
+            </strong>
+          </IonText>
           <br />
-          <IonLabel>To :</IonLabel>
-          <IonDatetime
-            presentation="time"
-            value={to}
-            onIonChange={(e) => {
-              onToChange(e);
-            }}
-          ></IonDatetime>
-        </IonItem>
-        <br />
-        <br />
-        <IonItem routerLink="/repeat" button detail={true}>
-          <IonLabel>Repeat</IonLabel>
-        </IonItem>
-      </IonContent>
-      <IonFooter>
-        <IonToolbar>
+          <br />
           <IonItem>
-            <div slot="end">
-              <IonButton
-                onClick={() => onDone()}
-                size="default"
-                className="plr-10"
-              >
-                Done
-              </IonButton>
-            </div>
+            <IonLabel>From :</IonLabel>
+            <IonDatetime
+              presentation="time"
+              value={from}
+              onIonChange={(e) => {
+                onFromChange(e);
+              }}
+            ></IonDatetime>
           </IonItem>
-        </IonToolbar>
-      </IonFooter>
-    </IonPage>
+          <IonItem>
+            <br />
+            <IonLabel>To :</IonLabel>
+            <IonDatetime
+              presentation="time"
+              value={to}
+              onIonChange={(e) => {
+                onToChange(e);
+              }}
+            ></IonDatetime>
+          </IonItem>
+          <br />
+          <br />
+          <IonItem
+            routerLink={"/repeat/" + app + "/" + tag}
+            button
+            detail={true}
+          >
+            <IonLabel>Repeat</IonLabel>
+          </IonItem>
+        </IonContent>
+        <IonFooter>
+          <IonToolbar>
+            <IonItem>
+              <div slot="end">
+                <IonButton
+                  onClick={() => onDone()}
+                  size="default"
+                  className="plr-10"
+                >
+                  Done
+                </IonButton>
+              </div>
+            </IonItem>
+          </IonToolbar>
+        </IonFooter>
+      </IonPage>
+    </>
   );
 };
 

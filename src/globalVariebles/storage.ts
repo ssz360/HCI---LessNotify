@@ -6,58 +6,73 @@ export const getDatabase = () => {
   }
   if (!_database) {
     _database = {
-      turnoff: {
-        applications: [
-          {
-            id: 1,
-            name: "Telegram",
-            isSelected: false,
-          },
-          {
-            id: 2,
-            name: "WhatsApp",
-            isSelected: false,
-          },
-          {
-            id: 3,
-            name: "IMO",
-            isSelected: false,
-          },
-          {
-            id: 4,
-            name: "Skype",
-            isSelected: false,
-          },
-          {
-            id: 5,
-            name: "Messenger",
-            isSelected: false,
-          },
+      applications: [
+        {
+          id: 1,
+          name: "Telegram",
+          isSelected: false,
+        },
+        {
+          id: 2,
+          name: "WhatsApp",
+          isSelected: false,
+        },
+        {
+          id: 3,
+          name: "IMO",
+          isSelected: false,
+        },
+        {
+          id: 4,
+          name: "Skype",
+          isSelected: false,
+        },
+        {
+          id: 5,
+          name: "Messenger",
+          isSelected: false,
+        },
+      ],
+      setTime: {
+        default: {
+          from: "2023-01-05T12:46:05+01:00",
+          to: "2023-01-05T12:46:05+01:00",
+        },
+      },
+      repeat: {
+        default: [
+          { name: "Monday", value: false },
+          { name: "Tuesday", value: false },
+          { name: "Wednesday", value: false },
+          { name: "Thursday", value: false },
+          { name: "Friday", value: false },
+          { name: "Saturday", value: false },
+          { name: "Sunday", value: false },
         ],
       },
-      setTime: {
-        from: "2023-01-05T12:46:00+01:00",
-        to: "2023-01-05T12:46:00+01:00",
-      },
-      repeat: [
-        { name: "Monday", value: false },
-        { name: "Tuesday", value: false },
-        { name: "Wednesday", value: false },
-        { name: "Thursday", value: false },
-        { name: "Friday", value: false },
-        { name: "Saturday", value: false },
-        { name: "Sunday", value: false },
-      ],
       keywords: ["help", "call me", "exam", "HCI"],
-      selectedContacts: ["Shahab", "Pouya", "Negin", "HCI Group"],
-      allContacts: ["Shahab", "Pouya", "Negin", "HCI Group","Jack","Soft 3", "Giulio","Billy","Jessie"],
+      contacts: {
+        all: [
+          "Shahab",
+          "Pouya",
+          "Negin",
+          "HCI Group",
+          "Jack",
+          "Soft 3",
+          "Giulio",
+          "Billy",
+          "Jessie",
+        ],
+        selectedContacts: ["Shahab", "Pouya", "Negin", "HCI Group"],
+      },
     };
-    saveData();
+    saveData(_database);
   }
-  return _database;
+  return Object.assign({}, _database);
 };
 
-export const saveData = () => {
+export const saveData = (database: any) => {
+  _database = Object.assign({}, database);
   localStorage.setItem("database", JSON.stringify(_database));
 };
 

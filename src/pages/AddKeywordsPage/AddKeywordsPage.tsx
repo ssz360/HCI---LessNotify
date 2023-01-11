@@ -18,6 +18,8 @@ import {
   IonFooter,
   IonTextarea,
   useIonAlert,
+  IonButtons,
+  IonMenuButton,
 } from "@ionic/react";
 import {
   informationCircle,
@@ -31,6 +33,7 @@ import "./AddKeywordsPage.css";
 import { useState } from "react";
 import { getDatabase, saveData } from "../../globalVariebles/storage";
 import { useIonRouter } from "@ionic/react";
+import Menu from "../../components/Menu";
 
 const AddKeywords: React.FC = () => {
   const history = createBrowserHistory();
@@ -62,7 +65,7 @@ const AddKeywords: React.FC = () => {
           handler: () => {
             const database = getDatabase();
             database.keywords.push(key);
-            saveData();
+            saveData(database);
             router.push("/");
           },
         },
@@ -72,56 +75,62 @@ const AddKeywords: React.FC = () => {
   }
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonItem className="no-border">
-            <IonIcon
-              onClick={(e) => {
-                e.preventDefault();
-                history.goBack();
-              }}
-              icon={chevronBackOutline}
-              slot="start"
-            ></IonIcon>
-            <IonTitle>Add New Keyword</IonTitle>
+    <>
+      <Menu />
+      <IonPage id="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonItem className="no-border">
+              <IonButtons slot="start">
+                <IonMenuButton></IonMenuButton>
+                <IonIcon
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.goBack();
+                  }}
+                  icon={chevronBackOutline}
+                  slot="start"
+                ></IonIcon>
+              </IonButtons>
+              <IonTitle>Add New Keyword</IonTitle>
+            </IonItem>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonTitle class="ion-text-start">The New Keyword:</IonTitle>
+          <br />
+          <br />
+          <IonItem>
+            <IonTextarea
+              placeholder="New Keyword ..."
+              onIonChange={(e) => setKey(e.target.value as any)}
+              value={key}
+            ></IonTextarea>
           </IonItem>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <IonTitle class="ion-text-start">The New Keyword:</IonTitle>
+        </IonContent>
         <br />
         <br />
-        <IonItem>
-          <IonTextarea
-            placeholder="New Keyword ..."
-            onIonChange={(e) => setKey(e.target.value as any)}
-            value={key}
-          ></IonTextarea>
-        </IonItem>
-      </IonContent>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
-      <IonFooter>
-        <IonItem>
-          <div slot="end">
-            <IonButton
-              routerLink="/"
-              size="default"
-              className="plr-10"
-              onClick={onAdd}
-            >
-              Add
-            </IonButton>
-          </div>
-        </IonItem>
-      </IonFooter>
-    </IonPage>
+        <IonFooter>
+          <IonItem>
+            <div slot="end">
+              <IonButton
+                routerLink="/"
+                size="default"
+                className="plr-10"
+                onClick={onAdd}
+              >
+                Add
+              </IonButton>
+            </div>
+          </IonItem>
+        </IonFooter>
+      </IonPage>
+    </>
   );
 };
 export default AddKeywords;
