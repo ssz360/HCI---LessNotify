@@ -11,6 +11,7 @@ import {
   IonLabel,
   IonList,
   IonMenuButton,
+  IonNote,
   IonPage,
   IonRow,
   IonText,
@@ -40,16 +41,22 @@ const PrioritizingPage: React.FC = () => {
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-              <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-              </IonButtons>
-              <IonTitle>Prioritize Notifications</IonTitle>
+            <IonButtons slot="start">
+              <IonMenuButton></IonMenuButton>
+            </IonButtons>
+            <IonTitle>Prioritize Notifications</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent  className="ion-padding">
+        <IonContent className="ion-padding">
           <br />
           <br />
-          <IonText>select an application to add priority list:</IonText>
+          <IonText>
+            You can define the important contacts and groups of each
+            application, when you this feature is enabled all of the
+            notifications of the applications are ignored but the ones from the
+            specified contact and groups.
+          </IonText>
+          <IonNote>Select an application to set the priority list.</IonNote>
           <br />
           <br />
           <IonList>

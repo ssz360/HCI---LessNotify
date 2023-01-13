@@ -114,7 +114,7 @@ const PriorityListPage: React.FC = () => {
                   slot="start"
                 ></IonIcon>
               </IonButtons>
-              <IonTitle>Selected Contacts And Groups</IonTitle>
+              <IonTitle>Contacts And Groups</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">

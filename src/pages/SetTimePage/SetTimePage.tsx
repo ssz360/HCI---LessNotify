@@ -111,24 +111,24 @@ const SetTimePage: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-                <IonIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.goBack();
-                  }}
-                  icon={chevronBackOutline}
-                  slot="start"
-                ></IonIcon>
-              </IonButtons>
-              <IonTitle>Add Time</IonTitle>
+              <IonMenuButton></IonMenuButton>
+              <IonIcon
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.goBack();
+                }}
+                icon={chevronBackOutline}
+                slot="start"
+              ></IonIcon>
+            </IonButtons>
+            <IonTitle>Add Time</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
           <IonText>
             Please set time for{" "}
             <strong>
-              {tag} {app === "turn-off" ? "" : app}
+              {tag} in {app === "turn-off" ? "" : app}
             </strong>
           </IonText>
           <br />
@@ -166,17 +166,15 @@ const SetTimePage: React.FC = () => {
         </IonContent>
         <IonFooter>
           <IonToolbar>
-            <IonItem>
-              <div slot="end">
-                <IonButton
-                  onClick={() => onDone()}
-                  size="default"
-                  className="plr-10"
-                >
-                  Done
-                </IonButton>
-              </div>
-            </IonItem>
+            <div slot="end">
+              <IonButton
+                onClick={() => onDone()}
+                size="default"
+                className="plr-10"
+              >
+                Done
+              </IonButton>
+            </div>
           </IonToolbar>
         </IonFooter>
       </IonPage>

@@ -12,6 +12,7 @@ import {
   IonList,
   IonMenu,
   IonMenuButton,
+  IonNote,
   IonPage,
   IonRow,
   IonText,
@@ -90,11 +91,18 @@ const TurnOffPage: React.FC = () => {
         <IonContent className="ion-padding">
           <br />
           <br />
-          <h2>Select Applications</h2>
+          <h2>Set Limitations On The Applications</h2>
           <IonText>
-            The selected applications’ notifications would be effected after
-            applying the action
+            In this section you can limit the notifications of applications by
+            selecting them then choosing the desired time and days you want to
+            apply those limitations.
           </IonText>
+          <br/>
+          <IonNote>
+            The selected applications’ notifications would be effected after
+            applying the action.
+          </IonNote>
+
           <br />
           <br />
           <IonList>
@@ -114,7 +122,6 @@ const TurnOffPage: React.FC = () => {
         </IonContent>
         <IonFooter>
           <IonToolbar>
-            <IonItem>
               <div slot="end">
                 <IonButton
                   routerLink="/settime/turn-off/Selected Applications"
@@ -133,7 +140,6 @@ const TurnOffPage: React.FC = () => {
                   Done
                 </IonButton>
               </div>
-            </IonItem>
           </IonToolbar>
         </IonFooter>
       </IonPage>

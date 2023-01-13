@@ -17,6 +17,8 @@ import {
   IonTitle,
   IonToggle,
   IonToolbar,
+  useIonAlert,
+  useIonRouter,
 } from "@ionic/react";
 import { informationCircle, star, chevronBackOutline } from "ionicons/icons";
 import { createBrowserHistory } from "history";
@@ -36,6 +38,8 @@ const RepeatPage: React.FC = () => {
   const [app, setApp] = useState("");
 
   const params: any = useParams();
+  const [presentAlert] = useIonAlert();
+  const router = useIonRouter();
 
   let database: any;
   //path="/repeat/:app/:tag"
@@ -49,12 +53,12 @@ const RepeatPage: React.FC = () => {
 
     let data = database.repeat.default;
     if (database.repeat[app] && database.repeat[app][tag]) {
-      data = Object.assign({}, database.repeat[app][tag]);
+      data = [...database.repeat[app][tag]];
     } else {
       if (!database.repeat[app]) {
         database.repeat[app] = {};
       }
-      database.repeat[app][tag] = { ...database.repeat.default };
+      database.repeat[app][tag] = [...database.repeat.default];
       saveData(database);
     }
 
@@ -70,8 +74,30 @@ const RepeatPage: React.FC = () => {
   }
 
   function onDone() {
-    database.repeat[app][tag] = days;
-    saveData(database);
+
+    presentAlert({
+      header: "Warning",
+      message: "Are you sure?",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            if (params.tag !== tag && params.app !== app) {
+              return;
+            }
+            let database = getDatabase();
+            
+            database.repeat[app][tag] = days;
+            saveData(database);
+            
+            router.push("/");
+          },
+        },
+        "Cancel",
+      ],
+    });
+
+
   }
 
   return (
@@ -80,23 +106,25 @@ const RepeatPage: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-                <IonIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.goBack();
-                  }}
-                  icon={chevronBackOutline}
-                  slot="start"
-                ></IonIcon>
-              </IonButtons>
-              <IonTitle>Select the repitition</IonTitle>
+              <IonMenuButton></IonMenuButton>
+              <IonIcon
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.goBack();
+                }}
+                icon={chevronBackOutline}
+                slot="start"
+              ></IonIcon>
+            </IonButtons>
+            <IonTitle>Select the repitition</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
           <IonText>
-            Select the repetition of time for {tag}{" "}
-            {app === "turn-off" ? "" : "in " + app}
+            Select the repetition of time for{" "}
+            <strong>
+              {tag} {app === "turn-off" ? "" : "in " + app}
+            </strong>
           </IonText>
           <br />
           <br />
@@ -117,20 +145,17 @@ const RepeatPage: React.FC = () => {
         </IonContent>
         <IonFooter>
           <IonToolbar>
-            <IonItem>
-              <div slot="end">
-                <IonButton
-                  routerLink="/"
-                  size="default"
-                  className="plr-10"
-                  onClick={(e) => {
-                    onDone();
-                  }}
-                >
-                  Done
-                </IonButton>
-              </div>
-            </IonItem>
+            <div slot="end">
+              <IonButton
+                size="default"
+                className="plr-10"
+                onClick={(e) => {
+                  onDone();
+                }}
+              >
+                Done
+              </IonButton>
+            </div>
           </IonToolbar>
         </IonFooter>
       </IonPage>

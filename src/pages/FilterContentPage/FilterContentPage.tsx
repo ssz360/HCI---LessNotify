@@ -19,6 +19,7 @@ import {
   useIonAlert,
   IonButtons,
   IonMenuButton,
+  IonNote,
 } from "@ionic/react";
 import {
   informationCircle,
@@ -82,9 +83,11 @@ const FilterContent: React.FC = () => {
           <br />
           <br />
           <IonText>
-            If message contains the keyword from the blow list, show me the
-            notification:
+            All the notifications would be ignored but the ones contains this Keywords.
           </IonText>
+          <IonNote>
+            Please define important Keywords.
+          </IonNote>
           <br />
           <br />
           <IonText>
