@@ -107,11 +107,9 @@ const SetTimePage: React.FC = () => {
 
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
             <IonButtons slot="start">
                 <IonMenuButton></IonMenuButton>
                 <IonIcon
@@ -124,7 +122,6 @@ const SetTimePage: React.FC = () => {
                 ></IonIcon>
               </IonButtons>
               <IonTitle>Add Time</IonTitle>
-            </IonItem>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">

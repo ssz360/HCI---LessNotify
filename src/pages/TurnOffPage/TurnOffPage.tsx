@@ -77,23 +77,13 @@ const TurnOffPage: React.FC = () => {
   }
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
-              <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-                <IonIcon
-                  onClick={(e) => {
-                    goBack(e);
-                  }}
-                  icon={chevronBackOutline}
-                  slot="start"
-                ></IonIcon>
-              </IonButtons>
-              <IonTitle>Turn Off Notifications</IonTitle>
-            </IonItem>
+            <IonButtons slot="start">
+              <IonMenuButton></IonMenuButton>
+            </IonButtons>
+            <IonTitle>Turn Off Notifications</IonTitle>
           </IonToolbar>
         </IonHeader>
 

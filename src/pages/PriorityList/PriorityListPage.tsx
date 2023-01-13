@@ -100,11 +100,9 @@ const PriorityListPage: React.FC = () => {
 
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
             <IonButtons slot="start">
                 <IonMenuButton></IonMenuButton>
                 <IonIcon
@@ -117,7 +115,6 @@ const PriorityListPage: React.FC = () => {
                 ></IonIcon>
               </IonButtons>
               <IonTitle>Selected Contacts And Groups</IonTitle>
-            </IonItem>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">

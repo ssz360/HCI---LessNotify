@@ -123,11 +123,9 @@ const ContactsAndGroups: React.FC = () => {
 
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
             <IonButtons slot="start">
                 <IonMenuButton></IonMenuButton>
                 <IonIcon
@@ -140,10 +138,9 @@ const ContactsAndGroups: React.FC = () => {
                 ></IonIcon>
               </IonButtons>
               <IonTitle>Contacts And Groups</IonTitle>
-            </IonItem>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <IonContent className="ion-padding">
           <IonSearchbar
             showClearButton="always"
             placeholder="Search"

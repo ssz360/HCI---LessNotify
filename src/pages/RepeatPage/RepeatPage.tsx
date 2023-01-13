@@ -76,11 +76,9 @@ const RepeatPage: React.FC = () => {
 
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
             <IonButtons slot="start">
                 <IonMenuButton></IonMenuButton>
                 <IonIcon
@@ -93,7 +91,6 @@ const RepeatPage: React.FC = () => {
                 ></IonIcon>
               </IonButtons>
               <IonTitle>Select the repitition</IonTitle>
-            </IonItem>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">

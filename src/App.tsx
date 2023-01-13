@@ -51,11 +51,9 @@ setupIonicReact();
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
+    <Menu />
       <IonRouterOutlet>
         <Route exact path="/home">
-          <MainPage />
-        </Route>
-        <Route exact path="/main-page">
           <MainPage />
         </Route>
         <Route exact path="/turn-off">
@@ -91,52 +89,6 @@ const App: React.FC = () => (
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
-
-  // <IonApp>
-  //   <IonReactRouter>
-  //     <IonSplitPane contentId="main">
-  //       <Menu />
-  //       <IonRouterOutlet>
-  //         <Route exact path="/home">
-  //           <MainPage />
-  //         </Route>
-  //         <Route exact path="/main-page">
-  //           <MainPage />
-  //         </Route>
-  //         <Route exact path="/turn-off">
-  //           <TurnOffPage />
-  //         </Route>
-  //         <Route exact path="/prioritizing">
-  //           <PrioritizingPage />
-  //         </Route>
-  //         <Route exact path="/settime/:app/:tag">
-  //           <SetTimePage />
-  //         </Route>
-  //         <Route exact path="/repeat/:app/:tag">
-  //           <RepeatPage />
-  //         </Route>
-  //         <Route exact path="/filter-content">
-  //           <FilterContent />
-  //         </Route>
-  //         <Route exact path="/add-keywords">
-  //           <AddKeywords />
-  //         </Route>
-  //         <Route exact path="/priority-listPage/:tag">
-  //           <PriorityListPage />
-  //         </Route>
-  //         <Route exact path="/help">
-  //           <HelpPage />
-  //         </Route>
-  //         <Route exact path="/contacts-groups/:tag">
-  //           <ContactsAndGroups />
-  //         </Route>
-  //         <Route exact path="/">
-  //           <Redirect to="/home" />
-  //         </Route>
-  //       </IonRouterOutlet>
-  //     </IonSplitPane>
-  //   </IonReactRouter>
-  // </IonApp>
 );
 
 export default App;

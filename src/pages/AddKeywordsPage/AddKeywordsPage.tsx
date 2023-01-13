@@ -76,24 +76,21 @@ const AddKeywords: React.FC = () => {
 
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
-              <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-                <IonIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.goBack();
-                  }}
-                  icon={chevronBackOutline}
-                  slot="start"
-                ></IonIcon>
-              </IonButtons>
-              <IonTitle>Add New Keyword</IonTitle>
-            </IonItem>
+            <IonButtons slot="start">
+              <IonMenuButton></IonMenuButton>
+              <IonIcon
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.goBack();
+                }}
+                icon={chevronBackOutline}
+                slot="start"
+              ></IonIcon>
+            </IonButtons>
+            <IonTitle>Add New Keyword</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">

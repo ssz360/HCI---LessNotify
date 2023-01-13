@@ -8,6 +8,9 @@ import {
   IonIcon,
   IonButtons,
   IonMenuButton,
+  IonAccordionGroup,
+  IonAccordion,
+  IonLabel,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import { createBrowserHistory } from "history";
@@ -18,27 +21,43 @@ const HelpPage: React.FC = () => {
 
   return (
     <>
-      <Menu />
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonItem className="no-border">
             <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-                <IonIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.goBack();
-                  }}
-                  icon={chevronBackOutline}
-                  slot="start"
-                ></IonIcon>
-              </IonButtons>
-              <IonTitle>FAQ</IonTitle>
-            </IonItem>
+              <IonMenuButton></IonMenuButton>
+            </IonButtons>
+            <IonTitle>FAQ</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent></IonContent>
+        <IonContent className="ion-padding">
+          <IonAccordionGroup>
+            <IonAccordion value="first">
+              <IonItem slot="header" color="light">
+                <IonLabel>First Accordion</IonLabel>
+              </IonItem>
+              <div className="ion-padding" slot="content">
+                First Content
+              </div>
+            </IonAccordion>
+            <IonAccordion value="second">
+              <IonItem slot="header" color="light">
+                <IonLabel>Second Accordion</IonLabel>
+              </IonItem>
+              <div className="ion-padding" slot="content">
+                Second Content
+              </div>
+            </IonAccordion>
+            <IonAccordion value="third">
+              <IonItem slot="header" color="light">
+                <IonLabel>Third Accordion</IonLabel>
+              </IonItem>
+              <div className="ion-padding" slot="content">
+                Third Content
+              </div>
+            </IonAccordion>
+          </IonAccordionGroup>
+        </IonContent>
       </IonPage>
     </>
   );

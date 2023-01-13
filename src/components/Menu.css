@@ -111,3 +111,14 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 } 
+
+
+.menu-logo {
+  text-align: center;
+}
+
+.menu-logo img{
+  display:inline-block;
+  width:150px;
+  margin-bottom: 20px;
+}
