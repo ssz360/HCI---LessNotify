@@ -24,9 +24,17 @@ const HelpPage: React.FC = () => {
       <IonPage id="main">
         <IonHeader>
           <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton></IonMenuButton>
-            </IonButtons>
+          <IonButtons slot="start">
+                <IonMenuButton></IonMenuButton>
+                <IonIcon
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.goBack();
+                  }}
+                  icon={chevronBackOutline}
+                  slot="start"
+                ></IonIcon>
+              </IonButtons>
             <IonTitle>FAQ</IonTitle>
           </IonToolbar>
         </IonHeader>

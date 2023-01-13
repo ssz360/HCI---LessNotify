@@ -148,6 +148,12 @@ export const getDatabase = () => {
           Messenger: ["Negin", "HCI Group"],
         },
       },
+      featuresStatus: {
+        turnOffNotification: false,
+        Prioritizing: false,
+        contentFiltering: false,
+      },
+      showSlider: true,
     };
     saveData(_database);
   }
