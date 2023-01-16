@@ -90,7 +90,7 @@ const RepeatPage: React.FC = () => {
             database.repeat[app][tag] = days;
             saveData(database);
             
-            router.push("/");
+            history.goBack();
           },
         },
         "Cancel",
@@ -153,7 +153,7 @@ const RepeatPage: React.FC = () => {
                   onDone();
                 }}
               >
-                Done
+                Set
               </IonButton>
             </div>
           </IonToolbar>

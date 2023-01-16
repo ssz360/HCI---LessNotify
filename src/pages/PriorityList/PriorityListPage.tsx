@@ -26,6 +26,7 @@ import {
   chevronBackOutline,
   addCircleOutline,
   trashOutline,
+  chevronForwardOutline,
 } from "ionicons/icons";
 import { createBrowserHistory } from "history";
 import { IonFab, IonFabButton } from "@ionic/react";
@@ -104,17 +105,17 @@ const PriorityListPage: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-                <IonIcon
-                  onClick={(e) => {
-                    e.preventDefault();
-                    history.goBack();
-                  }}
-                  icon={chevronBackOutline}
-                  slot="start"
-                ></IonIcon>
-              </IonButtons>
-              <IonTitle>Contacts And Groups</IonTitle>
+              <IonMenuButton></IonMenuButton>
+              <IonIcon
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.goBack();
+                }}
+                icon={chevronBackOutline}
+                slot="start"
+              ></IonIcon>
+            </IonButtons>
+            <IonTitle>Contacts And Groups</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
@@ -135,14 +136,21 @@ const PriorityListPage: React.FC = () => {
                   }}
                 >
                   <IonLabel>{contact}</IonLabel>
-                  <IonIcon
-                    icon={trashOutline}
-                    slot="end"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDelete(contact);
-                    }}
-                  ></IonIcon>
+
+                  <IonButtons slot="end">
+                    <IonIcon
+                      icon={trashOutline}
+                      slot="end"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete(contact);
+                      }}
+                    ></IonIcon>
+                    <IonIcon
+                      icon={chevronForwardOutline}
+                      slot="end"
+                    ></IonIcon>
+                  </IonButtons>
                 </IonItem>
               );
             })}

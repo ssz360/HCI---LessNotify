@@ -30,20 +30,23 @@ import {
 } from "ionicons/icons";
 import { createBrowserHistory } from "history";
 import "./FilterConetentPage.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getDatabase, saveData } from "../../globalVariebles/storage";
 import Menu from "../../components/Menu";
+import { useLocation } from "react-router";
 
 const FilterContent: React.FC = () => {
   const history = createBrowserHistory();
+  const location = useLocation();
 
   const [keywords, setKeywords] = useState<any>([]);
   const [presentAlert] = useIonAlert();
 
-  useEffect(() => {
+
+  useEffect(() => {    
     const data = getDatabase();
     setKeywords(data.keywords);
-  }, []);
+  }, [location]);
 
   function onDelete(key: any) {
     presentAlert({
@@ -74,20 +77,19 @@ const FilterContent: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-                <IonMenuButton></IonMenuButton>
-              </IonButtons>
-              <IonTitle>Filter By Content</IonTitle>
+              <IonMenuButton></IonMenuButton>
+            </IonButtons>
+            <IonTitle>Filter By Content</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent  className="ion-padding">
+        <IonContent className="ion-padding">
           <br />
           <br />
           <IonText>
-            All the notifications would be ignored but the ones contains this Keywords.
+            All the notifications would be ignored but the ones contains this
+            Keywords.
           </IonText>
-          <IonNote>
-            Please define important Keywords.
-          </IonNote>
+          <IonNote>Please define important Keywords.</IonNote>
           <br />
           <br />
           <IonText>

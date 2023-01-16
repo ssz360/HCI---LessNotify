@@ -92,12 +92,11 @@ const SetTimePage: React.FC = () => {
               return;
             }
             let database = getDatabase();
-            console.log(database.setTime);
             database.setTime[app][tag].from = from;
             database.setTime[app][tag].to = to;
-            console.log(database.setTime);
             saveData(database);
-            router.push("/");
+            // router.push("/");
+            history.goBack();
           },
         },
         "Cancel",
@@ -172,7 +171,7 @@ const SetTimePage: React.FC = () => {
                 size="default"
                 className="plr-10"
               >
-                Done
+                Set
               </IonButton>
             </div>
           </IonToolbar>

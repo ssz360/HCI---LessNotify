@@ -21,7 +21,7 @@ import { IonHeader, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { createBrowserHistory } from "history";
 import { chevronBackOutline, text } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import Menu from "../../components/Menu";
 import { getDatabase, saveData } from "../../globalVariebles/storage";
 
@@ -30,6 +30,7 @@ import { getDatabase, saveData } from "../../globalVariebles/storage";
 let selected: Array<any> = [];
 const ContactsAndGroups: React.FC = () => {
   const history = createBrowserHistory();
+  const location = useLocation();
 
   const [contactsGroups, setContactsGroups] = useState<any>([]);
   const [presentAlert] = useIonAlert();
@@ -46,7 +47,7 @@ const ContactsAndGroups: React.FC = () => {
   useEffect(() => {
     const data = getDatabase();
     setContactsGroups(data.contacts.all);
-  }, []);
+  }, [location]);
 
   function handleChange(ev: Event) {
     const data = getDatabase();
@@ -85,7 +86,8 @@ const ContactsAndGroups: React.FC = () => {
             }
             saveData(data);
             selected = [];
-            router.push("/");
+            // router.push("/");
+            history.goBack();
           },
         },
         "Cancel",

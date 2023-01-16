@@ -26,12 +26,15 @@ import {
 } from "@ionic/react";
 import { helpOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import Menu from "../../components/Menu";
 import { getDatabase, loadData, saveData } from "../../globalVariebles/storage";
 
 import "./MainPage.css";
 
 const MainPage: React.FC = () => {
+  const location = useLocation();
+
   useEffect(() => {
     loadData();
 
@@ -40,7 +43,7 @@ const MainPage: React.FC = () => {
     setPrioritizing(data.featuresStatus.Prioritizing);
     setContentFiltering(data.featuresStatus.contentFiltering);
     setShowSlider(data.showSlider);
-  }, []);
+  }, [location]);
 
   const [present] = useIonToast();
 

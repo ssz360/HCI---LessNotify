@@ -26,15 +26,17 @@ import "./PrioritizingPage.css";
 import { useEffect, useState } from "react";
 import { getDatabase } from "../../globalVariebles/storage";
 import Menu from "../../components/Menu";
+import { useLocation } from "react-router";
 
 const PrioritizingPage: React.FC = () => {
   const history = createBrowserHistory();
+  const location = useLocation();
 
   const [applications, setApplications] = useState<any>([]);
 
   useEffect(() => {
     setApplications(getDatabase().applications as any);
-  }, []);
+  }, [location]);
 
   return (
     <>

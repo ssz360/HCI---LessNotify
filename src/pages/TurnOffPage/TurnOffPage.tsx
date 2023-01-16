@@ -29,6 +29,7 @@ import { saveData, getDatabase } from "../../globalVariebles/storage";
 import "./TurnOffPage.css";
 import { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
+import { useLocation } from "react-router";
 
 const TurnOffPage: React.FC = () => {
   const history = createBrowserHistory();
@@ -37,13 +38,14 @@ const TurnOffPage: React.FC = () => {
 
   const [presentAlert] = useIonAlert();
   const router = useIonRouter();
+  const location = useLocation();
 
   let db: any = {};
 
   useEffect(() => {
     db = getDatabase();
     setApplications(db.applications as any);
-  }, []);
+  }, [location]);
 
   function onToggleChange(e: any) {
     const el = applications.find((x: any) => x.name === e.target.computedName);
@@ -97,7 +99,7 @@ const TurnOffPage: React.FC = () => {
             selecting them then choosing the desired time and days you want to
             apply those limitations.
           </IonText>
-          <br/>
+          <br />
           <IonNote>
             The selected applications’ notifications would be effected after
             applying the action.
@@ -122,24 +124,24 @@ const TurnOffPage: React.FC = () => {
         </IonContent>
         <IonFooter>
           <IonToolbar>
-              <div slot="end">
-                <IonButton
-                  routerLink="/settime/turn-off/Selected Applications"
-                  size="default"
-                  className="plr-10"
-                >
-                  Set Time
-                </IonButton>
-                <IonButton
-                  onClick={(e) => {
-                    onDone();
-                  }}
-                  size="default"
-                  className="plr-10"
-                >
-                  Done
-                </IonButton>
-              </div>
+            <div slot="end">
+              <IonButton
+                routerLink="/settime/turn-off/Selected Applications"
+                size="default"
+                className="plr-10"
+              >
+                Set Time
+              </IonButton>
+              <IonButton
+                onClick={(e) => {
+                  onDone();
+                }}
+                size="default"
+                className="plr-10"
+              >
+                Done
+              </IonButton>
+            </div>
           </IonToolbar>
         </IonFooter>
       </IonPage>
