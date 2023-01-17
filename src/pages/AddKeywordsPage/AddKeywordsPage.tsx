@@ -66,7 +66,8 @@ const AddKeywords: React.FC = () => {
             const database = getDatabase();
             database.keywords.push(key);
             saveData(database);
-            router.push("/");
+            //router.push("/");
+            history.goBack();
           },
         },
         "Cancel",

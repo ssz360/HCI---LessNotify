@@ -78,7 +78,7 @@ const PriorityListPage: React.FC = () => {
   function onDelete(key: any) {
     presentAlert({
       header: "Warning",
-      message: "Are you sure you want to Delete the contact/group?",
+      message: "Are you sure you want to Delete this contact/group from priority list?",
       buttons: [
         {
           text: "Delete",
@@ -122,7 +122,7 @@ const PriorityListPage: React.FC = () => {
           <br />
           <br />
           <IonText>
-            Select a contact to change the timing for <strong>{tag}</strong>:
+            Select a contact to view or change the time setting for it in <strong>{tag}</strong>:
           </IonText>
           <br />
           <br />

@@ -54,7 +54,7 @@ const PrioritizingPage: React.FC = () => {
           <br />
           <IonText>
             You can define the important contacts and groups of each
-            application, when you this feature is enabled all of the
+            application, when this feature is enabled all of the
             notifications of the applications are ignored but the ones from the
             specified contact and groups.
           </IonText>
