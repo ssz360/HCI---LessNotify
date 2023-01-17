@@ -7,10 +7,10 @@ export const getDatabase = () => {
   if (!_database) {
     _database = {
       applications: [
-        { id: 1, name: "Telegram", isSelected: true },
+        { id: 1, name: "Telegram", isSelected: false },
         { id: 2, name: "WhatsApp", isSelected: false },
         { id: 3, name: "IMO", isSelected: false },
-        { id: 4, name: "Skype", isSelected: true },
+        { id: 4, name: "Skype", isSelected: false },
         { id: 5, name: "Messenger", isSelected: false },
       ],
       setTime: {
@@ -74,10 +74,10 @@ export const getDatabase = () => {
       repeat: {
         default: [
           { name: "Monday", value: false },
-          { name: "Tuesday", value: true },
+          { name: "Tuesday", value: false },
           { name: "Wednesday", value: false },
           { name: "Thursday", value: false },
-          { name: "Friday", value: true },
+          { name: "Friday", value: false },
           { name: "Saturday", value: false },
           { name: "Sunday", value: false },
         ],

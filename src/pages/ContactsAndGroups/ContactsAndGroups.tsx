@@ -72,7 +72,7 @@ const ContactsAndGroups: React.FC = () => {
   function saveChanges() {
     presentAlert({
       header: "Warning",
-      message: "Are you sure you want to Add these contacts/groups?",
+      message: "Are you sure you want to Add these contacts/groups to priority list?",
       buttons: [
         {
           text: "Yes",

@@ -177,7 +177,7 @@ const MainPage: React.FC = () => {
         </IonHeader>
         <IonContent className="ion-padding">
           <IonNote>
-            You can change the settings from the applications menu.
+            You can configure the application and change the defined settings from the menu.
           </IonNote>
           <div className="section">
             <span className="section-title">Turn Of Notifications</span>
@@ -193,7 +193,7 @@ const MainPage: React.FC = () => {
             Apply your defined striction on selected application and ignoring
             their notification for the selected time and days.
             <IonItem>
-              <IonLabel>Turn On/Off</IonLabel>
+              <IonLabel>Enable/Disable</IonLabel>
               <IonToggle
                 onIonChange={(e) => {
                   onToggle(e, "Turn Off Notifications");
@@ -218,7 +218,7 @@ const MainPage: React.FC = () => {
             Prioritize your notification based on the applications and contacts
             or groups
             <IonItem>
-              <IonLabel>Turn On/Off</IonLabel>
+              <IonLabel>Enable/Disable</IonLabel>
               <IonToggle
                 onIonChange={(e) => {
                   onToggle(e, "Prioritizing Notifications");
@@ -243,7 +243,7 @@ const MainPage: React.FC = () => {
             </IonBadge>
             Filter the notifications based on keywords.
             <IonItem>
-              <IonLabel>Turn On/Off</IonLabel>
+              <IonLabel>Enable/Disable</IonLabel>
               <IonToggle
                 onIonChange={(e) => {
                   onToggle(e, "Content Filtering");

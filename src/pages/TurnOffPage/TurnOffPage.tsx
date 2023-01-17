@@ -62,7 +62,7 @@ const TurnOffPage: React.FC = () => {
   function onDone() {
     presentAlert({
       header: "Warning",
-      message: "Are you sure?",
+      message: "Are you sure to turn off notifications of these applications ?",
       buttons: [
         {
           text: "Yes",
