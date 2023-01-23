@@ -36,7 +36,7 @@ const PrioritizingPage: React.FC = () => {
 
   useEffect(() => {
     setApplications(getDatabase().applications as any);
-  }, [location]);
+  }, []);
 
   return (
     <>

@@ -43,7 +43,7 @@ const MainPage: React.FC = () => {
     setPrioritizing(data.featuresStatus.Prioritizing);
     setContentFiltering(data.featuresStatus.contentFiltering);
     setShowSlider(data.showSlider);
-  }, [location]);
+  }, []);
 
   const [present] = useIonToast();
 

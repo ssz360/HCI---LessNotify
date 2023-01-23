@@ -47,7 +47,7 @@ const ContactsAndGroups: React.FC = () => {
   useEffect(() => {
     const data = getDatabase();
     setContactsGroups(data.contacts.all);
-  }, [location]);
+  }, []);
 
   function handleChange(ev: Event) {
     const data = getDatabase();

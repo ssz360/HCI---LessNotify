@@ -45,7 +45,7 @@ const TurnOffPage: React.FC = () => {
   useEffect(() => {
     db = getDatabase();
     setApplications(db.applications as any);
-  }, [location]);
+  }, []);
 
   function onToggleChange(e: any) {
     const el = applications.find((x: any) => x.name === e.target.computedName);
