@@ -47,8 +47,8 @@ const TurnOffPage: React.FC = () => {
     setApplications(db.applications as any);
   }, []);
 
-  function onToggleChange(e: any) {
-    const el = applications.find((x: any) => x.name === e.target.computedName);
+  function onToggleChange(e: any, name: string) {
+    const el = applications.find((x: any) => x.name === name);
     el.isSelected = e.target.checked;
 
     setApplications([...applications]);
@@ -115,7 +115,7 @@ const TurnOffPage: React.FC = () => {
                   <IonToggle
                     slot="end"
                     checked={app.isSelected}
-                    onIonChange={(e: any) => onToggleChange(e)}
+                    onIonChange={(e: any) => onToggleChange(e, app.name)}
                   ></IonToggle>
                 </IonItem>
               );
