@@ -66,7 +66,7 @@ const SetTimePage: React.FC = () => {
 
     fromSetter(data.from);
     toSetter(data.to);
-  }, [params]);
+  }, []);
 
   function goBack(e: any) {
     e.preventDefault();
