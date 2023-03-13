@@ -1,5 +1,7 @@
 ## Final Project of Human computer resources course
 
+# LessNotify
+
 It is a prototype of an application for management of notifications based of the user's filtration and preferences.
 
 ### Screenshots:
